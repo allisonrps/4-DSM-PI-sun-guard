@@ -19,16 +19,27 @@ controller.create = async function(req, res) {
 
 controller.retrieveAll = async function(req, res) {
   try {
-    const result = await Sensor.find().sort({ nome: 'asc' })
-    // HTTP 200: OK (implícito)
-    res.send(result)
+    const filtro = {};
+    
+    // Verificar se há parâmetro de data_hora na query
+    if (req.query.data_hora) {
+      const dataInicial = new Date(`${req.query.data_hora}T00:00:00Z`);
+      const dataFinal = new Date(`${req.query.data_hora}T23:59:59Z`);
+      
+      // Adiciona o filtro de intervalo de data
+      filtro.data_hora = {
+        $gte: dataInicial,
+        $lte: dataFinal
+      };
+    }
+
+    const result = await Sensor.find(filtro).sort({ nome: 'asc' });
+    res.send(result);
+  } catch(error) {
+    console.error(error);
+    res.status(500).end();
   }
-  catch(error) {
-    console.error(error)
-    // HTTP 500: Internal Server Error
-    res.status(500).end()
-  }
-}
+};
 
 controller.retrieveOne = async function(req, res) {
   try {
