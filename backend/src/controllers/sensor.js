@@ -19,7 +19,7 @@ controller.create = async function(req, res) {
 controller.retrieveAll = async function(req, res) {
   try {
     const filtro = {};
-    
+
     // Verificar se há parâmetro de data na query
     if (req.query.data) {
       const data = new Date(req.query.data);  // Converte a string de data para Date
@@ -29,6 +29,21 @@ controller.retrieveAll = async function(req, res) {
     // Verificar se há parâmetro de hora na query
     if (req.query.hora) {
       filtro.hora = req.query.hora;  // Filtra pela hora exata no formato HH:MM
+    }
+
+    // Verificar se há parâmetro de UV na query
+    if (req.query.uv) {
+      filtro.uv = req.query.uv;  // Filtra pelo valor de UV
+    }
+
+    // Verificar se há parâmetro de temperatura na query
+    if (req.query.temperatura) {
+      filtro.temperatura = req.query.temperatura;  // Filtra pelo valor de temperatura
+    }
+
+    // Verificar se há parâmetro de umidade na query
+    if (req.query.umidade) {
+      filtro.umidade = req.query.umidade;  // Filtra pelo valor de umidade
     }
 
     // Busca no banco com os filtros aplicados e ordena por data e hora (ordem crescente)
