@@ -2,7 +2,8 @@ import mongoose from 'mongoose'
 
 const esquema = mongoose.Schema({
   // _id é automático no Mongoose
-  data_hora: { type: Date, required: false },
+  data: { type: Date, required: true },
+  hora: { type: String, required: true },
   uv: { type: String, required: true },
   temperatura: { type: String, required: true },
   umidade: { type: String, required: true }
