@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="design/logoblack.png" alt="Logo" width="200"/>
+  <img src="design/logoblack.png" alt="Logo" width="400"/>
 </p>
 
 # Projeto PI 4º DSM - FATEC FRANCA - 2024-2
@@ -17,11 +17,13 @@
 ---
 
 ## Descrição do Projeto
-Através da aplicação web e mobile será possível coletar dados de incidência de raios UV, temperatura e umidade, criando **alertas** sobre o risco de exposição ao Sol de acordo com o tom de pele do usuário. O sistema permitirá:
+Através da aplicação web e mobile será possível coletar dados de incidência de raios UV, temperatura e umidade, criando **alertas** sobre o risco de exposição ao Sol de acordo com o tom de pele do usuário.
 
-- Cadastro e login do usuário.
-- Visualização de dashboards com gráficos relativos aos dados coletados.
-- Recebimento de notificações de alerta.
+## Funcionalidades:
+- Coleta de dados de incidência de raios UV, temperatura e umidade.
+- Cadastro e autenticação de usuários.
+- Dashboards interativos com gráficos de dados.
+- Notificações de alerta de exposição ao Sol.
 
 ---
 
@@ -54,10 +56,5 @@ Através da aplicação web e mobile será possível coletar dados de incidênci
 
 ---
 
-## Funcionalidades:
-- Coleta de dados de incidência de raios UV, temperatura e umidade.
-- Cadastro e autenticação de usuários.
-- Dashboards interativos com gráficos de dados.
-- Notificações de alerta de exposição ao Sol.
 
 
