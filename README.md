@@ -1,8 +1,10 @@
 <p align="center">
   <img src="design/logoblack.png" alt="Logo" width="400"/>
-</p>
 
 # Projeto PI 4º DSM - FATEC FRANCA - 2024-2
+</p>
+
+---
 
 ## Grupo
 - **Allison Rodrigues de Paula e Silva**  
