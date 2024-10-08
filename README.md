@@ -48,7 +48,7 @@ Através da aplicação web e mobile será possível coletar dados de incidênci
 - [https://sunguard-backend.vercel.app/usuarios](https://sunguard-backend.vercel.app/usuarios)
 - [https://sunguard-backend.vercel.app/sensors](https://sunguard-backend.vercel.app/sensors)
 
-**Documentação da API:** (adicione aqui o link da documentação)
+[**Documentação da API:**](backend/openapi.yaml) 
 
 ### Frontend Web
 - ![React](https://img.shields.io/badge/React-20232a?style=for-the-badge&logo=react&logoColor=61dafb)
