@@ -33,13 +33,14 @@ controller.retrieveAll = async function(req, res) {
       };
     }
 
-    const result = await Sensor.find(filtro).sort({ nome: 'asc' });
+    const result = await Sensor.find(filtro).sort({ data_hora: 1 }); // Ordena em ordem crescente
     res.send(result);
   } catch(error) {
     console.error(error);
     res.status(500).end();
   }
 };
+
 
 controller.retrieveOne = async function(req, res) {
   try {
