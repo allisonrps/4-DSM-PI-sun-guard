@@ -4,8 +4,8 @@ const esquema = mongoose.Schema({
   // _id é automático no Mongoose
   nome: { type: String, required: true },
   cpf: { type: String, required: true, index: { unique: true} },
-  data_nascimento: { type: Date, required: false },
-  pele: { type: String, required: true },
+  data_nascimento: { type: Date, required: true },
+  fototipo: { type: String, required: true },
   senha: { type: String, required: true }
 })
 
