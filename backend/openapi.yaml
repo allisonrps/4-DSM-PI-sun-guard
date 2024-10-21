@@ -1,0 +1,159 @@
+openapi: 3.0.0
+info:
+  title: SunGuard API
+  description: API para gerenciar e consultar dados de sensores UV, temperatura e umidade.
+  version: 1.0.0
+servers:
+  - url: https://sunguard-backend.vercel.app
+    description: API do projeto SunGuard
+paths:
+  /sensors:
+    get:
+      summary: Retorna todos os dados de sensores com filtros opcionais
+      description: Consulta dados de sensores com a possibilidade de aplicar filtros por data, hora, UV, temperatura e umidade. nos respectivos formatos
+      parameters:
+        - in: query
+          name: data
+          schema:
+            type: string
+            format: date
+          description: Filtra por data no formato YYYY-MM-DD.
+        - in: query
+          name: hora
+          schema:
+            type: string
+            pattern: '^\d{2}:\d{2}$'
+          description: Filtra por hora no formato HH:MM.
+        - in: query
+          name: uv
+          schema:
+            type: number
+          description: Filtra por valor de UV no formato X.X.
+        - in: query
+          name: temperatura
+          schema:
+            type: number
+          description: Filtra por valor de temperatura no formato XX.X.
+        - in: query
+          name: umidade
+          schema:
+            type: number
+          description: Filtra por valor de umidade no formato XX.
+      responses:
+        '200':
+          description: Lista de dados de sensores
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sensor'
+        '500':
+          description: Erro interno no servidor
+    post:
+      summary: Cria um novo dado de sensor
+      description: Adiciona um novo registro de sensor com dados de UV, temperatura e umidade.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sensor'
+      responses:
+        '201':
+          description: Dado de sensor criado com sucesso!
+        '500':
+          description: Erro interno no servidor!
+  /sensors/{id}:
+    get:
+      summary: Retorna um único dado de sensor
+      description: Busca um registro de sensor pelo ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID do sensor
+      responses:
+        '200':
+          description: Dados de sensor
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sensor'
+        '404':
+          description: Dados não encontrado
+        '500':
+          description: Erro interno no servidor
+    put:
+      summary: Atualiza um dado de sensor
+      description: Atualiza um registro de sensor pelo ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID do sensor
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sensor'
+      responses:
+        '204':
+          description: Dados atualizado com sucesso
+        '404':
+          description: Dados não encontrado
+        '500':
+          description: Erro interno no servidor
+    delete:
+      summary: Deleta um dado de sensor
+      description: Remove um registro de sensor pelo ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID do sensor
+      responses:
+        '204':
+          description: Sensor excluído com sucesso
+        '404':
+          description: Sensor não encontrado
+        '500':
+          description: Erro interno no servidor
+components:
+  schemas:
+    Sensor:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID único do sensor
+        data:
+          type: string
+          format: date-time
+          description: Data do registro
+        hora:
+          type: string
+          description: Hora do registro no formato HH:MM
+        uv:
+          type: number
+          description: Valor de UV
+        temperatura:
+          type: number
+          description: Valor da temperatura
+        umidade:
+          type: number
+          description: Valor da umidade
+      example:
+        _id: "67049ba390e6606216547f61"
+        data: "2024-10-01T00:00:00.000Z"
+        hora: "00:00"
+        uv: 0.0
+        temperatura: 18.0
+        umidade: 61
