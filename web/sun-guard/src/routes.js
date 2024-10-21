@@ -13,7 +13,7 @@ function AppRoutes (){
         <BrowserRouter>
             <Routes>
                 <Route path="/cadastro" element={<Cadastro/>} />
-                <Route path="/PaginaInicial" element={<PaginaInicial/>} />
+                <Route path="/" element={<PaginaInicial/>} />
                 <Route path="/Painel" element={<Painel/>} />
                 <Route path="/Perfil" element={<Perfil/>} />
             </Routes>

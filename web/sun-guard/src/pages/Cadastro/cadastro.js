@@ -46,7 +46,7 @@ const Cadastro = () => {
         <div className={styles.loginContainer}>
             
             <form className={styles.loginForm} onSubmit={handleSubmit}>
-                     <h2 className={styles.title}>Cadastro </h2> 
+                     <h2 className={styles.title}> Cadastro </h2> 
                       
                     <div className={styles.formGroup}>
                         
@@ -72,10 +72,13 @@ const Cadastro = () => {
                         
                     
                         id="options"  placeholder="Fototipo" value={fototipo} onChange={handleChangeFototipo}>
-                            <option value="option1">selecione um fototipo</option>
-                            <option value="option2">Opção 2</option>
-                            <option value="option3">Opção 3</option>
-                            <option value="option4">Opção 4</option>
+                            <option value="option1">Selecione um Fototipo</option>
+                            <option value="option2">Tipo 1 - Muito Claro</option>
+                            <option value="option3">Tipo 2 - Claro</option>
+                            <option value="option4">Tipo 3 - Moreno Claro</option>
+                            <option value="option5">Tipo 4 - Moreno</option>
+                            <option value="option6">Tipo 5 - Moreno Escuro</option>
+                            <option value="option7">Tipo 6 - Negro</option>
                         </select>
 
                         <input
