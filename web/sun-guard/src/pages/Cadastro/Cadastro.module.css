@@ -1,0 +1,138 @@
+/* Estilos do contêiner externo */
+.loginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Define o contêiner para ocupar a tela toda */
+    background-color: #ffffff;
+    flex-direction: column;
+}
+
+.loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height:300px;
+    width: 400px;
+    background-color: #ffffff;
+
+}
+
+.button {
+ 
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    height: 40px;
+    background-color: #140101;
+    color: white;
+    font-weight: bold;
+
+  
+}
+
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 50px;
+
+}
+
+.formGroup
+input{
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    height: 40px;
+    border: 2px solid #910000;
+    ;
+
+}
+
+.link {
+    margin-top: 20px;
+    text-decoration: none;
+    color: rgb(20, 9, 9);
+}
+
+
+.loginForm img {
+    width: 200px;
+    margin-bottom: 10px;
+}
+
+
+.logo {
+    margin-bottom: px;
+    height: 150px; /* Defina a largura que deseja */
+    width: auto; /* A altura será ajustada proporcionalmente */
+}
+
+.linkCadastro {
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    height: 40px;
+    background-color: #140101;
+    color: white;
+    font-weight: bold;
+
+}
+
+.title {
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    height: 100px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.formGroup 
+select{
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: none;
+    width: 100%;
+    height: 40px;
+    border: 2px solid #910000;
+    ;
+
+}
+
+.dateWrapper {
+    position: relative;
+    width: 100%;
+  }
+  
+  .dateInput {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .datePlaceholder {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #aaa;
+    pointer-events: none;
+    transition: 0.2s;
+  }
+  
+  /* Esconde o placeholder quando o input tem valor ou está focado */
+  .dateInput:not(:placeholder-shown) + .datePlaceholder,
+  .dateInput:focus + .datePlaceholder {
+    opacity: 0;
+    visibility: hidden;
+  }
+  
