@@ -1,16 +1,18 @@
 openapi: 3.0.0
 info:
   title: SunGuard API
-  description: API para gerenciar e consultar dados de sensores UV, temperatura e umidade.
+  description: API para gerenciar e consultar dados de sensores UV, temperatura e umidade por data e horas da coleta, além de gerenciar usuários.
   version: 1.0.0
 servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/ALLISONRPS/SunGuard_API/1.0.0
   - url: https://sunguard-backend.vercel.app
     description: API do projeto SunGuard
 paths:
   /sensors:
     get:
       summary: Retorna todos os dados de sensores com filtros opcionais
-      description: Consulta dados de sensores com a possibilidade de aplicar filtros por data, hora, UV, temperatura e umidade. nos respectivos formatos
+      description: Consulta dados de sensores com a possibilidade de aplicar filtros por data, hora, UV, temperatura e umidade.
       parameters:
         - in: query
           name: data
@@ -83,7 +85,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Sensor'
         '404':
-          description: Dados não encontrado
+          description: Dados não encontrados
         '500':
           description: Erro interno no servidor
     put:
@@ -104,9 +106,9 @@ paths:
               $ref: '#/components/schemas/Sensor'
       responses:
         '204':
-          description: Dados atualizado com sucesso
+          description: Dados atualizados com sucesso
         '404':
-          description: Dados não encontrado
+          description: Dados não encontrados
         '500':
           description: Erro interno no servidor
     delete:
@@ -124,6 +126,122 @@ paths:
           description: Sensor excluído com sucesso
         '404':
           description: Sensor não encontrado
+        '500':
+          description: Erro interno no servidor
+  /usuarios:
+    get:
+      summary: Retorna todos os usuários com filtros opcionais
+      description: Consulta dados de usuários com a possibilidade de aplicar filtros por nome, fototipo e intervalo de datas de nascimento.
+      parameters:
+        - in: query
+          name: nome
+          schema:
+            type: string
+          description: Filtra por nome (regex).
+        - in: query
+          name: fototipo
+          schema:
+            type: string
+          description: Filtra por fototipo.
+        - in: query
+          name: data_nascimento_inicial
+          schema:
+            type: string
+            format: date
+          description: Filtra por data de nascimento inicial no formato YYYY-MM-DD.
+        - in: query
+          name: data_nascimento_final
+          schema:
+            type: string
+            format: date
+          description: Filtra por data de nascimento final no formato YYYY-MM-DD.
+      responses:
+        '200':
+          description: Lista de usuários
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Usuario'
+        '500':
+          description: Erro interno no servidor
+    post:
+      summary: Cria um novo usuário
+      description: Adiciona um novo registro de usuário.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Usuario'
+      responses:
+        '201':
+          description: Usuário criado com sucesso!
+        '400':
+          description: Campos obrigatórios não preenchidos ou email já em uso
+        '500':
+          description: Erro interno no servidor
+  /usuarios/{id}:
+    get:
+      summary: Retorna um único usuário
+      description: Busca um registro de usuário pelo ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID do usuário
+      responses:
+        '200':
+          description: Dados do usuário
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+        '404':
+          description: Usuário não encontrado
+        '500':
+          description: Erro interno no servidor
+    put:
+      summary: Atualiza um usuário
+      description: Atualiza um registro de usuário pelo ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID do usuário
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Usuario'
+      responses:
+        '204':
+          description: Usuário atualizado com sucesso
+        '404':
+          description: Usuário não encontrado
+        '500':
+          description: Erro interno no servidor
+    delete:
+      summary: Deleta um usuário
+      description: Remove um registro de usuário pelo ID.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: ID do usuário
+      responses:
+        '204':
+          description: Usuário excluído com sucesso
+        '404':
+          description: Usuário não encontrado
         '500':
           description: Erro interno no servidor
 components:
@@ -157,3 +275,33 @@ components:
         uv: 0.0
         temperatura: 18.0
         umidade: 61
+    Usuario:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID único do usuário
+        nome:
+          type: string
+          description: Nome do usuário
+        fototipo:
+          type: string
+          description: Fototipo do usuário
+        senha:
+          type: string
+          description: Senha do usuário (hash)
+        email:
+          type: string
+          format: email
+          description: Email do usuário
+        data_nascimento:
+          type: string
+          format: date
+          description: Data de nascimento do usuário
+      example:
+        _id: "1234567890abcdef12345678"
+        nome: "João da Silva"
+        fototipo: "Muito Claro"
+        senha: "hashed_senha_aqui"
+        email: "joao@example.com"
+        data_nascimento: "1990-01-01"
