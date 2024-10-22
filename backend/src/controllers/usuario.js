@@ -55,16 +55,40 @@ controller.create = async function(req, res) {
 
 controller.retrieveAll = async function(req, res) {
   try {
-    const result = await Usuario.find().sort({ nome: 'asc' })
-    // HTTP 200: OK (implícito)
-    res.send(result)
+    // Construir um objeto de consulta (query) com base nos parâmetros fornecidos
+    const { nome, fototipo, data_nascimento_inicial, data_nascimento_final } = req.query;
+
+    let query = {};
+
+    // Adicionar filtro por nome se fornecido
+    if (nome) {
+      // Usar regex para buscar nomes que contenham o valor informado, ignorando maiúsculas/minúsculas
+      query.nome = { $regex: nome, $options: 'i' };
+    }
+
+    // Adicionar filtro por fototipo se fornecido
+    if (fototipo) {
+      query.fototipo = fototipo;
+    }
+
+    // Adicionar filtro por intervalo de datas de nascimento se fornecido
+    if (data_nascimento_inicial && data_nascimento_final) {
+      query.data_nascimento = {
+        $gte: new Date(data_nascimento_inicial),
+        $lte: new Date(data_nascimento_final)
+      };
+    }
+
+    // Consultar o banco de dados com os filtros definidos
+    const result = await Usuario.find(query).sort({ nome: 'asc' });
+    
+    // Retornar os resultados
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Erro ao buscar usuários.' });
   }
-  catch(error) {
-    console.error(error)
-    // HTTP 500: Internal Server Error
-    res.status(500).end()
-  }
-}
+};
 
 
 
