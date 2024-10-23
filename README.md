@@ -48,7 +48,7 @@ Através da aplicação web e mobile será possível coletar dados de incidênci
 - [**Documentação da API Swagger**](https://app.swaggerhub.com/apis/ALLISONRPS/SunGuard_API/1.0.0#/) 
 
 ### Frontend Web
-- ![React](https://img.shields.io/badge/React-20232a?style=for-the-badge&logo=react&logoColor=61dafb) ![JavaScript](https://img.shields.io/badge/JavaScript-f7df1e?style=for-the-badge&logo=javascript&logoColor=black)
+- ![HTML](https://img.shields.io/badge/html-f7df1e?style=for-the-badge&logo=html&logoColor=black) ![CSS](https://img.shields.io/badge/css-f7df1e?style=for-the-badge&logo=css&logoColor=black) ![React](https://img.shields.io/badge/React-20232a?style=for-the-badge&logo=react&logoColor=61dafb) ![JavaScript](https://img.shields.io/badge/JavaScript-f7df1e?style=for-the-badge&logo=javascript&logoColor=black) 
 
 ### Mobile
 - ![React Native](https://img.shields.io/badge/React_Native-20232a?style=for-the-badge&logo=react&logoColor=61dafb)
