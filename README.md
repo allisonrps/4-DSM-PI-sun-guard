@@ -2,7 +2,7 @@
   <img src="design/logoblack.png" alt="Logo" width="400"/>
 </p>
 
-![SUNGUARD WEB](https://sunguard.vercel.app)
+[SUNGUARD WEB](https://sunguard.vercel.app)
 
 <p align="center">
 # PROJETO PI 4º DSM - FATEC FRANCA - 2024-2
