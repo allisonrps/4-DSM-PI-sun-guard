@@ -13,10 +13,10 @@
 ---
 
 ## Grupo
-- **Allison Rodrigues de Paula e Silva**    [![GitHub](https://img.shields.io/badge/GitHub-allisonrps-blue?logo=github)](https://github.com/allisonrps)
-- **Bruno Santos Silva**    [![GitHub](https://img.shields.io/badge/GitHub-BrunoJose--dev-blue?logo=github)](https://github.com/BrunoJose-dev)
-- **Paula Cristina Abib Teixeira**    [![GitHub](https://img.shields.io/badge/GitHub-jed1rey-blue?logo=github)](https://github.com/jed1rey)
-- **Samir Lopes Rosa**    [![GitHub](https://img.shields.io/badge/GitHub-SamLope-blue?logo=github)](https://github.com/SamLope)
+- [![GitHub](https://img.shields.io/badge/GitHub-allisonrps-blue?logo=github)](https://github.com/allisonrps) - **Allison Rodrigues de Paula e Silva**    
+- [![GitHub](https://img.shields.io/badge/GitHub-BrunoJose--dev-blue?logo=github)](https://github.com/BrunoJose-dev) - **Bruno Santos Silva**
+- [![GitHub](https://img.shields.io/badge/GitHub-jed1rey-blue?logo=github)](https://github.com/jed1rey) - **Paula Cristina Abib Teixeira**
+- [![GitHub](https://img.shields.io/badge/GitHub-SamLope-blue?logo=github)](https://github.com/SamLope) - **Samir Lopes Rosa**
 
 ---
 
