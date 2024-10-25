@@ -81,6 +81,32 @@ controller.update = async function(req, res) {
   }
 }
 
+
+
+controller.updateMany = async function(req, res) {
+  try {
+    const filtro = {};
+
+    // Verificar e adicionar filtros com base na requisição
+    if (req.body.data) filtro.data = req.body.data;
+    if (req.body.hora) filtro.hora = req.body.hora;
+    if (req.body.uv) filtro.uv = req.body.uv;
+    if (req.body.temperatura) filtro.temperatura = req.body.temperatura;
+    if (req.body.umidade) filtro.umidade = req.body.umidade;
+
+    // Realiza a atualização de todos os documentos que correspondem aos filtros
+    const result = await Sensor.updateMany(filtro, req.body.novosDados);
+    
+    if (result.modifiedCount > 0) res.status(204).end();  // Atualizações feitas
+    else res.status(404).end();  // Nenhum documento encontrado
+  }
+  catch(error) {
+    console.error(error);
+    res.status(500).end();
+  }
+}
+
+
 controller.delete = async function(req, res) {
   try {
     const result = await Sensor.findByIdAndDelete(req.params.id);
