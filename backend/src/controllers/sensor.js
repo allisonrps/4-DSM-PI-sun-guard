@@ -92,18 +92,25 @@ controller.updateMany = async function(req, res) {
 
     // Itera sobre cada objeto no array
     for (const dataEntry of req.body) {
-      const { data, hora, temperatura, umidade, uv } = dataEntry;
+      let { data, hora, temperatura, umidade, uv } = dataEntry;
 
-      // Verifica se data e hora estão presentes
+      // Verifica se a entrada contém 'data' e 'hora'
       if (!data || !hora) {
         return res.status(400).send({ error: "Cada entrada deve conter 'data' e 'hora'" });
       }
 
+      // Converte 'data' para o formato `YYYY-MM-DD` apenas
+      data = new Date(data).toISOString().split('T')[0];
+
       // Atualiza o documento que corresponde à data e hora específicas
-      await Sensor.updateOne(
-        { data: data, hora: hora },  // Filtro por data e hora específicas
+      const result = await Sensor.updateOne(
+        { data, hora },  // Filtro por data (somente dia) e hora específicas
         { temperatura, umidade, uv } // Campos a serem atualizados
       );
+
+      if (result.matchedCount === 0) {
+        console.log(`Nenhum documento encontrado para data: ${data} e hora: ${hora}`);
+      }
     }
 
     // Responde com sucesso se todos os documentos foram processados
@@ -113,6 +120,7 @@ controller.updateMany = async function(req, res) {
     res.status(500).end();
   }
 }
+
 
 
 
