@@ -85,26 +85,36 @@ controller.update = async function(req, res) {
 
 controller.updateMany = async function(req, res) {
   try {
-    const filtro = {};
+    // Verifica se o corpo da requisição contém um array de dados
+    if (!Array.isArray(req.body)) {
+      return res.status(400).send({ error: "Esperado um array de objetos de dados para atualização" });
+    }
 
-    // Verificar e adicionar filtros com base na requisição
-    if (req.body.data) filtro.data = req.body.data;
-    if (req.body.hora) filtro.hora = req.body.hora;
-    if (req.body.uv) filtro.uv = req.body.uv;
-    if (req.body.temperatura) filtro.temperatura = req.body.temperatura;
-    if (req.body.umidade) filtro.umidade = req.body.umidade;
+    // Itera sobre cada objeto no array
+    for (const dataEntry of req.body) {
+      const { data, hora, temperatura, umidade, uv } = dataEntry;
 
-    // Realiza a atualização de todos os documentos que correspondem aos filtros
-    const result = await Sensor.updateMany(filtro, req.body.novosDados);
-    
-    if (result.modifiedCount > 0) res.status(204).end();  // Atualizações feitas
-    else res.status(404).end();  // Nenhum documento encontrado
-  }
-  catch(error) {
+      // Verifica se data e hora estão presentes
+      if (!data || !hora) {
+        return res.status(400).send({ error: "Cada entrada deve conter 'data' e 'hora'" });
+      }
+
+      // Atualiza o documento que corresponde à data e hora específicas
+      await Sensor.updateOne(
+        { data: data, hora: hora },  // Filtro por data e hora específicas
+        { temperatura, umidade, uv } // Campos a serem atualizados
+      );
+    }
+
+    // Responde com sucesso se todos os documentos foram processados
+    res.status(204).end();
+  } catch (error) {
     console.error(error);
     res.status(500).end();
   }
 }
+
+
 
 
 controller.delete = async function(req, res) {
