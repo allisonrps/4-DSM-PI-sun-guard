@@ -1,11 +1,13 @@
 import Usuario from '../models/Usuario.js';
-
+import bcrypt from 'bcrypt'; // Para hash de senha
 import jwt from 'jsonwebtoken'; // Para geração de token
 
 const controller = {}   // Objeto vazio
 
 
-controller.create = async function (req, res) {
+
+
+controller.create = async function(req, res) {
   try {
     // Desestruturar os dados recebidos do corpo da requisição
     const { nome, fototipo, senha, email, data_nascimento } = req.body;
@@ -21,13 +23,13 @@ controller.create = async function (req, res) {
       return res.status(400).json({ message: 'O email já está em uso.' });
     }
 
-    // Criar o novo usuário no banco de dados com a senha sem hash
+    // Criar o novo usuário no banco de dados sem hash da senha
     const newUser = await Usuario.create({
       nome,
       fototipo,
-      senha, // Armazena a senha em texto claro (não recomendável)
+      senha, // Armazena a senha crua
       email,
-      data_nascimento,
+      data_nascimento
     });
 
     // Gerar um token de autenticação (JWT)
@@ -48,26 +50,36 @@ controller.create = async function (req, res) {
 
 
 
-controller.retrieveAll = async function (req, res) {
+controller.retrieveAll = async function(req, res) {
   try {
+    // Construir um objeto de consulta (query) com base nos parâmetros fornecidos
     const { nome, fototipo, data_nascimento_inicial, data_nascimento_final } = req.query;
+
     let query = {};
 
+    // Adicionar filtro por nome se fornecido
     if (nome) {
+      // Usar regex para buscar nomes que contenham o valor informado, ignorando maiúsculas/minúsculas
       query.nome = { $regex: nome, $options: 'i' };
     }
+
+    // Adicionar filtro por fototipo se fornecido
     if (fototipo) {
       query.fototipo = fototipo;
     }
+
+    // Adicionar filtro por intervalo de datas de nascimento se fornecido
     if (data_nascimento_inicial && data_nascimento_final) {
       query.data_nascimento = {
         $gte: new Date(data_nascimento_inicial),
-        $lte: new Date(data_nascimento_final),
+        $lte: new Date(data_nascimento_final)
       };
     }
 
-    // Consultar o banco de dados sem o campo 'senha'
-    const result = await Usuario.find(query).select('-senha').sort({ nome: 'asc' });
+    // Consultar o banco de dados com os filtros definidos
+    const result = await Usuario.find(query).sort({ nome: 'asc' });
+    
+    // Retornar os resultados
     res.status(200).json(result);
   } catch (error) {
     console.error(error);
@@ -75,38 +87,66 @@ controller.retrieveAll = async function (req, res) {
   }
 };
 
-controller.retrieveOne = async function (req, res) {
-  try {
-    // Consultar o banco de dados sem o campo 'senha'
-    const result = await Usuario.findById(req.params.id).select('-senha');
-    if (result) res.send(result);
-    else res.status(404).end();
-  } catch (error) {
-    console.error(error);
-    res.status(500).end();
-  }
-};
 
-controller.update = async function (req, res) {
-  try {
-    const result = await Usuario.findByIdAndUpdate(req.params.id, req.body);
-    if (result) res.status(204).end();
-    else res.status(404).end();
-  } catch (error) {
-    console.error(error);
-    res.status(500).end();
-  }
-};
 
-controller.delete = async function (req, res) {
-  try {
-    const result = await Usuario.findByIdAndDelete(req.params.id);
-    if (result) res.status(204).end();
-    else res.status(404).end();
-  } catch (error) {
-    console.error(error);
-    res.status(500).end();
-  }
-};
 
-export default controller;
+
+
+controller.retrieveOne = async function(req, res) {
+  try {
+    const result = await Usuario.findById(req.params.id)
+    // Documento encontrado ~> HTTP 200: OK (implícito)
+    if(result) res.send(result)
+    // Documento não encontrado ~> HTTP 404: Not Found
+    else res.status(404).end()  
+  }
+  catch(error) {
+    console.error(error)
+    // HTTP 500: Internal Server Error
+    res.status(500).end()
+  }
+}
+
+
+
+
+
+
+controller.update = async function(req, res) {
+  try {
+    const result = await Usuario.findByIdAndUpdate(req.params.id, req.body)
+    // Documento encontrado e atualizado ~> HTTP 204: No Content
+    if(result) res.status(204).end()
+    // Documento não encontrado (e não atualizado) ~> HTTP 404: Not Found
+    else res.status(404).end()
+  }
+  catch(error) {
+    console.error(error)
+    // HTTP 500: Internal Server Error
+    res.status(500).end()
+  }
+}
+
+
+
+
+
+controller.delete = async function(req, res) {
+  try {
+    const result = await Usuario.findByIdAndDelete(req.params.id)
+    // Documento encontrado e excluído ~> HTTP 204: No Content
+    if(result) res.status(204).end()
+    // Documento não encontrado (e não excluído) ~> HTTP 404: Not Found
+    else res.status(404).end()
+  }
+  catch(error) {
+    console.error(error)
+    // HTTP 500: Internal Server Error
+    res.status(500).end()
+  }
+}
+
+
+
+
+export default controller

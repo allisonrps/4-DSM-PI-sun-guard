@@ -25,6 +25,7 @@ const esquema = new mongoose.Schema({
   }
 });
 
+
 // Exportar o modelo baseado no esquema
 export default mongoose.model('Usuario', esquema, 'usuarios');
 
