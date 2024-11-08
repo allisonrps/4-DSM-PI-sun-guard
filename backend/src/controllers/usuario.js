@@ -1,4 +1,5 @@
 import Usuario from '../models/Usuario.js';
+
 import jwt from 'jsonwebtoken'; // Para geração de token
 
 const controller = {}   // Objeto vazio
@@ -42,31 +43,7 @@ controller.create = async function (req, res) {
 
 
 
-/////////////////////////////////////////////////// Função de login para autenticação
-controller.login = async function (req, res) {
-  try {
-    const { email, senha } = req.body;
 
-    // Verifica se o email existe no banco de dados
-    const usuario = await Usuario.findOne({ email });
-    if (!usuario) {
-      return res.status(400).json({ message: 'Email ou senha incorretos.' });
-    }
-
-    // Verifica se a senha fornecida corresponde à senha armazenada
-    const senhaCorreta = await bcrypt.compare(senha, usuario.senha);
-    if (!senhaCorreta) {
-      return res.status(400).json({ message: 'Email ou senha incorretos.' });
-    }
-
-    // Gera um token JWT para autenticação
-    const token = jwt.sign({ id: usuario._id }, 'seu_segredo_jwt', { expiresIn: '1h' });
-    res.status(200).json({ message: 'Autenticação bem-sucedida!', token });
-  } catch (error) {
-    console.error('Erro ao autenticar usuário:', error);
-    res.status(500).json({ message: 'Erro interno do servidor.' });
-  }
-};
 
 
 
