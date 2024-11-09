@@ -34,9 +34,9 @@ Através da aplicação web e mobile será possível coletar dados de incidênci
 ## Tecnologias Utilizadas
 
 ### IoT
-- **Dispositivo:** Orange Pi
+- **Dispositivo:** Arduino Uno
 - **Sensores:**
-  - GUVA SD12 (Raios UV)
+  - GUVA S12D (Raios UV)
   - DHT11 (Temperatura e Umidade)
 
 ### Backend
