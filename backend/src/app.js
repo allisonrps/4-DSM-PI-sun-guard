@@ -23,7 +23,7 @@ mongoose.connect(process.env.DATABASE_URL)
 
 // Configuração de CORS
 const allowedOrigins = [
-  "https://sun-guard.vercel.app/", // URL da sua aplicação React Web
+  "https://www.sun-guard.vercel.app/", // URL da sua aplicação React Web
   "http://localhost:8081", // URL do seu app React Native durante desenvolvimento
 ];
 
