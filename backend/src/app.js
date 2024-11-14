@@ -1,36 +1,62 @@
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 // Carrega as variáveis do arquivo .env
-// no objeto global process.env
-dotenv.config()
+dotenv.config();
 
 import express, { json, urlencoded } from "express";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import cors from 'cors';
+import mongoose from 'mongoose';
+
+// Importação das rotas
 import indexRouter from "./routes/index.js";
 import usersRouter from "./routes/users.js";
+import usuarioRouter from './routes/usuario.js';
+import sensorRouter from './routes/sensor.js';
 
 const app = express();
 
-import mongoose from 'mongoose'
+// Conexão com o banco de dados MongoDB
 mongoose.connect(process.env.DATABASE_URL)
+  .then(() => console.log("MongoDB conectado"))
+  .catch((err) => console.log("Erro ao conectar ao MongoDB: ", err));
 
+// Configuração de CORS
+const allowedOrigins = [
+  "https://sun-guard.vercel.app/", // URL da sua aplicação React Web
+  "http://localhost:8081", // URL do seu app React Native durante desenvolvimento
+];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true); // Permite a origem
+    } else {
+      callback(new Error("Não autorizado pela política de CORS"));
+    }
+  },
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true, // Permite o envio de cookies e credenciais
+};
+
+app.use(cors(corsOptions)); // Ativando CORS com as opções configuradas
+
+// Middlewares
 app.use(logger("dev"));
 app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(cors());
+
+// Definindo as rotas
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/usuarios", usuarioRouter);
+app.use("/sensors", sensorRouter);
 
-/***************************************************
- * ROTAS
-***************************************************/
+// Middleware de erro - Para capturar erros não tratados
+app.use((err, req, res, next) => {
+  console.error(err.stack); // Loga o erro no servidor
+  res.status(500).json({ error: "Algo deu errado no servidor." });
+});
 
-import usuarioRouter from './routes/usuario.js'
-app.use('/usuarios', usuarioRouter)
-
-import sensorRouter from './routes/sensor.js'
-app.use('/sensors', sensorRouter)
-
-export default app;
+export default app;
