@@ -23,14 +23,11 @@ controller.create = async function(req, res) {
       return res.status(400).json({ message: 'O email já está em uso.' });
     }
 
-    // Hash da senha antes de armazená-la
-    const hashedSenha = await bcrypt.hash(senha, 10);
-
-    // Criar o novo usuário no banco de dados
+    // Criar o novo usuário no banco de dados sem hash da senha
     const newUser = await Usuario.create({
       nome,
       fototipo,
-      senha: hashedSenha, // Armazena a senha hash
+      senha, // Armazena a senha crua
       email,
       data_nascimento
     });
