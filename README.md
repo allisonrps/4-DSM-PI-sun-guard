@@ -53,8 +53,21 @@ Através da aplicação web e mobile será possível coletar dados de incidênci
 ### Mobile
 - ![React Native](https://img.shields.io/badge/React_Native-20232a?style=for-the-badge&logo=react&logoColor=61dafb) ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white) ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 
+### Análise de Dados
+- ![Power BI](https://img.shields.io/badge/Power_BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black) 
 
 ---
 
+
+## Análise Estatística
+
+[![Visualizar Dashboard](https://img.shields.io/badge/Visualizar_Dashboard-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)](https://app.powerbi.com/view?r=eyJrIjoiOTZlN2IyYzAtNjE2ZS00ZDdmLTkwZjAtZjgxMWEzODcyY2Q4IiwidCI6ImNmNzJlMmJkLTdhMmItNDc4My1iZGViLTM5ZDU3YjA3Zjc2ZiIsImMiOjR9)
+
+
+--- 
+
+
+## Portifólio UX-UI
+[![Behance](https://img.shields.io/badge/Behance-1769FF?style=for-the-badge&logo=behance&logoColor=white)](https://www.behance.net)
 
 
