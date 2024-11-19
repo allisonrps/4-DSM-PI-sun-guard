@@ -42,8 +42,8 @@
 .buttons {
   display: flex;
   justify-content: flex-start; 
-  gap: 20px; /* Maior espaço entre os botões */
-  margin-top: 20px; /* Espaço superior */
+  gap: 20px; 
+  margin-top: 20px;
 }
 
 .button, .button2 {
@@ -70,7 +70,7 @@
 
 /* Botão Sair */
 .buttonSair {
-  background-color: #d9534f; /* Cor diferenciada para o botão Sair */
+  background-color: #d9534f; 
   color: #fff;
 }
 

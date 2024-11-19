@@ -7,6 +7,7 @@ import Cadastro from './pages/Cadastro/cadastro';
 import PaginaInicial from './pages/PaginaInicial/paginaInicial';
 import Perfil from './pages/Perfil/perfil';
 import Painel from './pages/Painel/painel';
+import DashboardEstatistica from './pages/Dashboard/dashboardEstatistica';
 
 
 
@@ -27,6 +28,14 @@ function AppRoutes (){
             <Perfil />
           </ProtectedRoute>
         } />
+                <Route
+          path="/DashboardEstatistica"
+          element={
+            <ProtectedRoute>
+              <DashboardEstatistica />
+            </ProtectedRoute>
+          }
+        />
             </Routes>
         </BrowserRouter>
 
