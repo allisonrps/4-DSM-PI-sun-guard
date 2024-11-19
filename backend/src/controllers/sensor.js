@@ -36,10 +36,21 @@ controller.retrieveAll = async function(req, res) {
   try {
     const filtro = {};
 
-    // Verificar se há parâmetro de data na query
-    if (req.query.data) {
-      const data = new Date(req.query.data);  // Converte a string de data para Date
-      filtro.data = data.toISOString().split('T')[0];  // Filtra apenas pela data (formato YYYY-MM-DD)
+    // Verificar se há parâmetro de data_inicio na query
+    if (req.query.data_inicio) {
+      const dataInicio = new Date(req.query.data_inicio);  // Converte a string de data_inicio para Date
+      filtro.data = { 
+        $gte: dataInicio  // Filtra data maior ou igual a data_inicio
+      };
+    }
+
+    // Verificar se há parâmetro de data_fim na query
+    if (req.query.data_fim) {
+      const dataFim = new Date(req.query.data_fim);  // Converte a string de data_fim para Date
+      filtro.data = {
+        ...filtro.data,  // Mantém o filtro anterior
+        $lt: dataFim  // Filtra data menor que data_fim
+      };
     }
 
     // Verificar se há parâmetro de hora na query
@@ -72,6 +83,7 @@ controller.retrieveAll = async function(req, res) {
     res.status(500).end();
   }
 }
+
 
 controller.retrieveOne = async function(req, res) {
   try {

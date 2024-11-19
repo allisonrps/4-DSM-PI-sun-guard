@@ -12,14 +12,20 @@ paths:
   /sensors:
     get:
       summary: Retorna todos os dados de sensores com filtros opcionais
-      description: Consulta dados de sensores com a possibilidade de aplicar filtros por data, hora, UV, temperatura e umidade.
+      description: Consulta dados de sensores com a possibilidade de aplicar filtros por data, hora, UV, temperatura, umidade, e intervalo de datas.
       parameters:
         - in: query
-          name: data
+          name: data_inicio
           schema:
             type: string
             format: date
-          description: Filtra por data no formato YYYY-MM-DD.
+          description: Filtra por data de início no formato YYYY-MM-DD.
+        - in: query
+          name: data_fim
+          schema:
+            type: string
+            format: date
+          description: Filtra por data de fim no formato YYYY-MM-DD.
         - in: query
           name: hora
           schema:
@@ -131,7 +137,7 @@ paths:
   /usuarios:
     get:
       summary: Retorna todos os usuários com filtros opcionais
-      description: Consulta dados de usuários com a possibilidade de aplicar filtros por nome, fototipo e intervalo de datas de nascimento.
+      description: Consulta dados de usuários com a possibilidade de aplicar filtros por nome, fototipo, e intervalo de datas de nascimento.
       parameters:
         - in: query
           name: nome
@@ -289,7 +295,7 @@ components:
           description: Fototipo do usuário
         senha:
           type: string
-          description: Senha do usuário (hash)
+          description: Senha do usuário
         email:
           type: string
           format: email
@@ -302,6 +308,6 @@ components:
         _id: "1234567890abcdef12345678"
         nome: "João da Silva"
         fototipo: "Muito Claro"
-        senha: "hashed_senha_aqui"
+        senha: "senha_aqui"
         email: "joao@example.com"
         data_nascimento: "1990-01-01"
