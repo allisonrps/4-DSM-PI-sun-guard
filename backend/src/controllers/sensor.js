@@ -32,121 +32,46 @@ controller.delete = async (req, res) => {
 };
 
 
-
-
-
-// Recupera apenas os dados de temperatura para uma data específica
-controller.retrieveTemperaturaByDate = async (req, res) => {
-  try {
-    const { data } = req.query;
-
-    if (!data) {
-      return res.status(400).send({ error: 'O parâmetro "data" é obrigatório.' });
-    }
-
-    const formattedDate = new Date(data).toISOString().split('T')[0];
-
-    const result = await Sensor.find(
-      { data: formattedDate },
-      { temperatura: 1, data: 1, hora: 1, _id: 1 } // Inclui hora
-    );
-    res.send(result);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ error: 'Erro interno do servidor.' });
-  }
-};
-
-// Recupera apenas os dados de umidade para uma data específica
-controller.retrieveUmidadeByDate = async (req, res) => {
-  try {
-    const { data } = req.query;
-
-    if (!data) {
-      return res.status(400).send({ error: 'O parâmetro "data" é obrigatório.' });
-    }
-
-    const formattedDate = new Date(data).toISOString().split('T')[0];
-
-    const result = await Sensor.find(
-      { data: formattedDate },
-      { umidade: 1, data: 1, hora: 1, _id: 1 } // Inclui hora e exclui _id
-    );
-    res.send(result);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ error: 'Erro interno do servidor.' });
-  }
-};
-
-// Recupera apenas os dados de UV para uma data específica
-controller.retrieveUvByDate = async (req, res) => {
-  try {
-    const { data } = req.query;
-
-    if (!data) {
-      return res.status(400).send({ error: 'O parâmetro "data" é obrigatório.' });
-    }
-
-    const formattedDate = new Date(data).toISOString().split('T')[0];
-
-    const result = await Sensor.find(
-      { data: formattedDate },
-      { uv: 1, data: 1, hora: 1, _id: 1 } // Inclui hora 
-    );
-    res.send(result);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send({ error: 'Erro interno do servidor.' });
-  }
-};
-
-
-
 controller.retrieveAll = async function(req, res) {
   try {
     const filtro = {};
-    const campos = { data: 1, hora: 1 }; // Projeção inicial (data e hora)
 
     // Verificar se há parâmetro de data na query
     if (req.query.data) {
-      const data = new Date(req.query.data); // Converte a string de data para Date
-      filtro.data = data.toISOString().split('T')[0]; // Filtra apenas pela data (formato YYYY-MM-DD)
+      const data = new Date(req.query.data);  // Converte a string de data para Date
+      filtro.data = data.toISOString().split('T')[0];  // Filtra apenas pela data (formato YYYY-MM-DD)
     }
 
-    // Verificar se há parâmetro de temperatura na query
-    if (req.query.temperatura) {
-      filtro.temperatura = req.query.temperatura; // Filtra pelo valor de temperatura
-      campos.temperatura = 1; // Inclui temperatura nos campos de retorno
-    }
-
-    // Verificar se há parâmetro de umidade na query
-    if (req.query.umidade) {
-      filtro.umidade = req.query.umidade; // Filtra pelo valor de umidade
-      campos.umidade = 1; // Inclui umidade nos campos de retorno
+    // Verificar se há parâmetro de hora na query
+    if (req.query.hora) {
+      filtro.hora = req.query.hora;  // Filtra pela hora exata no formato HH:MM
     }
 
     // Verificar se há parâmetro de UV na query
     if (req.query.uv) {
-      filtro.uv = req.query.uv; // Filtra pelo valor de UV
-      campos.uv = 1; // Inclui UV nos campos de retorno
+      filtro.uv = req.query.uv;  // Filtra pelo valor de UV
+    }
+
+    // Verificar se há parâmetro de temperatura na query
+    if (req.query.temperatura) {
+      filtro.temperatura = req.query.temperatura;  // Filtra pelo valor de temperatura
+    }
+
+    // Verificar se há parâmetro de umidade na query
+    if (req.query.umidade) {
+      filtro.umidade = req.query.umidade;  // Filtra pelo valor de umidade
     }
 
     // Busca no banco com os filtros aplicados e ordena por data e hora (ordem crescente)
-    const result = await Sensor.find(filtro, campos).sort({ data: 1, hora: 1 });
+    const result = await Sensor.find(filtro).sort({ data: 1, hora: 1 });  // Ordena por data e depois hora
 
     // Retorna os dados filtrados e ordenados
     res.send(result);
-  } catch (error) {
+  } catch(error) {
     console.error(error);
     res.status(500).end();
   }
-};
-
-
-
-
-
+}
 
 controller.retrieveOne = async function(req, res) {
   try {
@@ -160,11 +85,6 @@ controller.retrieveOne = async function(req, res) {
   }
 }
 
-
-
-
-
-
 controller.update = async function(req, res) {
   try {
     const result = await Sensor.findByIdAndUpdate(req.params.id, req.body);
@@ -176,12 +96,6 @@ controller.update = async function(req, res) {
     res.status(500).end();
   }
 }
-
-
-
-
-
-
 
 
 controller.updateMany = async function(req, res) {
