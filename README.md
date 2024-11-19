@@ -75,18 +75,18 @@ Através da aplicação web e mobile será possível coletar dados de incidênci
 
 ## PRINTS WEB
 
-![Tela de Login](prints/web-login.PNG)
-![Tela de Cadastro](prints/web-cadastro.PNG)
-![Tela de Perfil](prints/web-perfil.PNG)
-![Tela de Gráficos](prints/web-graficos.PNG)
-![Tela de Estatística 1](prints/web-estatistica1.PNG)
-![Tela de Estatística 2](prints/web-estatistica2.PNG)
+![Tela de Login](./prints/web-login.png)
+![Tela de Cadastro](./prints/web-cadastro.png)
+![Tela de Perfil](./prints/web-perfil.png)
+![Tela de Gráficos](./prints/web-graficos.png)
+![Tela de Estatística 1](./prints/prints/web-estatistica1.png)
+![Tela de Estatística 2](./prints/web-estatistica2.png)
 
 ---
 
 ## PRINTS MOBILE
 
-![Tela de Login](prints/mobile-login.PNG)
-![Tela de Cadastro](prints/mobile-cadastro.PNG)
-![Tela de Perfil](prints/mobile-perfil.PNG)
-![Tela de Gráficos](prints/mobile-graficos.PNG)
+![Tela de Login](./prints/mobile-login.png)
+![Tela de Cadastro](./prints/mobile-cadastro.png)
+![Tela de Perfil](./prints/mobile-perfil.png)
+![Tela de Gráficos](./prints/mobile-graficos.png)

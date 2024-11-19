@@ -15,10 +15,10 @@ A aplicação permite cadastro de usuários, visualização de gráficos e infor
 
 ---
 
-![Tela de Login](../prints/mobile-login.PNG)
-![Tela de Cadastro](../prints/mobile-cadastro.PNG)
-![Tela de Perfil](../prints/mobile-perfil.PNG)
-![Tela de Gráficos](../prints/mobile-graficos.PNG)
+![Tela de Login](../prints/mobile-login.png)
+![Tela de Cadastro](../prints/mobile-cadastro.png)
+![Tela de Perfil](../prints/mobile-perfil.png)
+![Tela de Gráficos](../prints/mobile-graficos.png)
 
 ---
 
