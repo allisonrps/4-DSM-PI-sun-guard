@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="design/logoblack.png" alt="Logo" width="400"/>
+  <img src="../design/logoblack.png" alt="Logo" width="400"/>
 </p>
 
 <p align="center">
@@ -49,7 +49,6 @@ Antes de começar, você precisará ter instalado:
    ```bash
    npm install
 
-   ```bash
    yarn install
 
 
