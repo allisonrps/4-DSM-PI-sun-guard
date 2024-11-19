@@ -58,33 +58,24 @@ Através da aplicação web e mobile será possível coletar dados de incidênci
 
 ---
 
-
 ## Análise Estatística
 
 [![Visualizar Dashboard](https://img.shields.io/badge/Visualizar_Dashboard-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)](https://app.powerbi.com/view?r=eyJrIjoiOTZlN2IyYzAtNjE2ZS00ZDdmLTkwZjAtZjgxMWEzODcyY2Q4IiwidCI6ImNmNzJlMmJkLTdhMmItNDc4My1iZGViLTM5ZDU3YjA3Zjc2ZiIsImMiOjR9)
 
-
---- 
-
-
-## Portifólio UX-UI
-[![Behance](https://img.shields.io/badge/Behance-1769FF?style=for-the-badge&logo=behance&logoColor=white)](https://www.behance.net)
-
-
 ---
 
-## PRINTS WEB
+## Prints WEB
 
 ![Tela de Login](./prints/web-login.png)
 ![Tela de Cadastro](./prints/web-cadastro.png)
 ![Tela de Perfil](./prints/web-perfil.png)
 ![Tela de Gráficos](./prints/web-graficos.png)
-![Tela de Estatística 1](./prints/prints/web-estatisticas1.png)
+![Tela de Estatística 1](./prints/web-estatisticas1.png)
 ![Tela de Estatística 2](./prints/web-estatisticas2.png)
 
 ---
 
-## PRINTS MOBILE
+## Prints MOBILE
 
 <p align="center">
   <img src="./prints/mobile-login.png" alt="Tela de Login" width="200" style="margin-right: 10px;"/>
@@ -92,3 +83,5 @@ Através da aplicação web e mobile será possível coletar dados de incidênci
   <img src="./prints/mobile-perfil.png" alt="Tela de Perfil" width="200" style="margin-right: 10px;"/>
   <img src="./prints/mobile-graficos.png" alt="Tela de Gráficos" width="200" style="margin-right: 10px;"/>
 </p>
+
+---

@@ -33,27 +33,28 @@ Antes de começar, você precisará ter instalado:
 
 ---
 
-## **Como executar o projeto**
+## **COMO EXECUTAR O PROJETO: **
 
 1. **Clone este repositório**:
    ```bash
    git clone https://github.com/allisonrps/4-DSM-PI-sun-guard.git
 
 2. **Acesse a pasta /web**:
-
    ```bash
    cd web
 
 3. **Instale as depêndencias**:
-
    ```bash
    npm install
-
    yarn install
-
 
 4. **Inicie o Projeto:**:
    ```bash
    npm start
+
+5. **Acessar localmente:**:
+   https://localhost:3000
+
+---
 
 
