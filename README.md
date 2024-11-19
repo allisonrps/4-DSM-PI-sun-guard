@@ -71,3 +71,22 @@ Através da aplicação web e mobile será possível coletar dados de incidênci
 [![Behance](https://img.shields.io/badge/Behance-1769FF?style=for-the-badge&logo=behance&logoColor=white)](https://www.behance.net)
 
 
+---
+
+## PRINTS WEB
+
+![Tela de Login](../prints/web-login.PNG)
+![Tela de Cadastro](../prints/web-cadastro.PNG)
+![Tela de Perfil](../prints/web-perfil.PNG)
+![Tela de Gráficos](../prints/web-graficos.PNG)
+![Tela de Estatística 1](../prints/web-estatistica1.PNG)
+![Tela de Estatística 2](../prints/web-estatistica2.PNG)
+
+---
+
+## PRINTS MOBILE
+
+![Tela de Login](../prints/mobile-login.PNG)
+![Tela de Cadastro](../prints/mobile-cadastro.PNG)
+![Tela de Perfil](../prints/mobile-perfil.PNG)
+![Tela de Gráficos](../prints/mobile-graficos.PNG)
