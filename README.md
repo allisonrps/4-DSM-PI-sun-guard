@@ -86,7 +86,9 @@ Através da aplicação web e mobile será possível coletar dados de incidênci
 
 ## PRINTS MOBILE
 
-![Tela de Login](./prints/mobile-login.png)
-![Tela de Cadastro](./prints/mobile-cadastro.png)
-![Tela de Perfil](./prints/mobile-perfil.png)
-![Tela de Gráficos](./prints/mobile-graficos.png)
+<p align="center">
+  <img src="./prints/mobile-login.png" alt="Tela de Login" width="200" style="margin-right: 10px;"/>
+  <img src="./prints/mobile-cadastro.png" alt="Tela de Cadastro" width="200" style="margin-right: 10px;"/>
+  <img src="./prints/mobile-perfil.png" alt="Tela de Perfil" width="200" style="margin-right: 10px;"/>
+  <img src="./prints/mobile-graficos.png" alt="Tela de Gráficos" width="200" style="margin-right: 10px;"/>
+</p>
