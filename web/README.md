@@ -19,8 +19,8 @@ A aplicação permite cadastro de usuários, visualização de gráficos, análi
 ![Tela de Cadastro](../prints/web-cadastro.png)
 ![Tela de Perfil](../prints/web-perfil.png)
 ![Tela de Gráficos](../prints/web-graficos.png)
-![Tela de Estatística 1](../prints/web-estatistica1.png)
-![Tela de Estatística 2](../prints/web-estatistica2.png)
+![Tela de Estatística 1](../prints/web-estatisticas1.png)
+![Tela de Estatística 2](../prints/web-estatisticas2.png)
 
 ---
 
