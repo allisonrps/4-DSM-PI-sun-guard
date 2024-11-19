@@ -28,6 +28,7 @@
     "react-native-svg": "^15.8.0",
     "react-native-vector-icons": "^10.2.0",
     "styled-components": "^6.1.8",
+    "SunGuard": "file:",
     "victory-native": "^41.9.0"
   },
   "devDependencies": {

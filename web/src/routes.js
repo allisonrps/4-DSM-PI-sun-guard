@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ProtectedRoute from './components/protectedRoute';
 
 
 
@@ -8,14 +9,24 @@ import Perfil from './pages/Perfil/perfil';
 import Painel from './pages/Painel/painel';
 
 
+
 function AppRoutes (){
     return(
         <BrowserRouter>
             <Routes>
                 <Route path="/cadastro" element={<Cadastro/>} />
-                <Route path="/PaginaInicial" element={<PaginaInicial/>} />
+                <Route path="/" element={<PaginaInicial/>} />
                 <Route path="/Painel" element={<Painel/>} />
-                <Route path="/Perfil" element={<Perfil/>} />
+                <Route path="/Painel" element={
+          <ProtectedRoute>
+            <Painel />
+          </ProtectedRoute>
+        } />
+        <Route path="/Perfil" element={
+          <ProtectedRoute>
+            <Perfil />
+          </ProtectedRoute>
+        } />
             </Routes>
         </BrowserRouter>
 

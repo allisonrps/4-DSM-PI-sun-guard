@@ -2,24 +2,44 @@ import React, {useState} from "react";
 import styles from "./PaginaInicial.module.css";
 import { Link } from "react-router-dom";
 import logo from '../../assets/logo.png';
+import { useNavigate } from "react-router-dom"; // Para redirecionar após login
+import axios from 'axios';
 
 
 const PaginaInicial = () => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-  
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      
-   
-  // Aqui você pode adicionar a lógica de autenticação, como enviar dados para uma API
-      console.log('Email:', email);
-      
-   
-  console.log('Password:', password);
-    };
+    const navigate = useNavigate(); // Hook para redirecionar
 
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        try {
+          // Busca todos os usuários da API
+          const response = await axios.get('https://sunguard-backend.vercel.app/usuarios');
+          const usuarios = response.data;
+          
+          const usuarioAutenticado = usuarios.find(
+            (usuario) => usuario.email === email && usuario.senha === password
+          );
+    
+          if (usuarioAutenticado) {
+            localStorage.setItem('isAuthenticated', 'true');
+            localStorage.setItem('userEmail', email); // Salva o email do usuário logado
+    
+            // Redireciona para a página inicial
+            navigate('/Perfil');
+            console.log('Login bem-sucedido!');
+          } else {
+            console.log('Email ou senha incorretos.');
+            alert('Email ou senha incorretos.');
+          }
+        } catch (error) {
+          console.error('Erro ao autenticar:', error.message);
+          alert('Erro ao autenticar. Tente novamente.');
+        }
+      };
+    
     return (
         
     

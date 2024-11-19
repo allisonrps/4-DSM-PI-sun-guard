@@ -5,8 +5,11 @@
 #define DHTTYPE DHT11   // Tipo do sensor DHT
 DHT dht(DHTPIN, DHTTYPE);
 
-// Configuração do sensor DUVA S12D
+// Configuração do sensor GUVA S12D
 #define UV_PIN A0       // Pino onde o GUVA S12D está conectado
+
+// Defina um multiplicador para calibrar o índice UV
+const float UV_MULTIPLICADOR = 1.5;  // Ajuste
 
 void setup() {
   Serial.begin(9600);
@@ -19,9 +22,10 @@ void loop() {
   float temperatura = dht.readTemperature();
   float umidade = dht.readHumidity();
 
-  // Leitura do sensor DUVA S12D
+  // Leitura do sensor GUVA S12D
   int uvValue = analogRead(UV_PIN);
   float uvIntensity = (uvValue / 1023.0) * 5.0;  // Converte para tensão (0 a 5V)
+  float uvIndex = uvIntensity * UV_MULTIPLICADOR;  // Aplica o multiplicador - índice UV
 
   // Exibe os dados no monitor serial
   if (isnan(temperatura) || isnan(umidade)) {
@@ -29,17 +33,17 @@ void loop() {
   } else {
     Serial.print("Temperatura: ");
     Serial.print(temperatura);
-    Serial.println(" °C");
-
+    Serial.print(" °C, ");
     Serial.print("Umidade: ");
     Serial.print(umidade);
-    Serial.println(" %");
+    Serial.print(" %, ");
   }
 
-  Serial.print("Intensidade UV (tensão): ");
+  Serial.print("Intensidade UV (tensão):  ");
   Serial.print(uvIntensity);
-  Serial.println(" V");
+  Serial.print("V -> Índice UV estimado: ");
+  Serial.println(uvIndex);
 
-  delay(2000);  // Aguarda 2 segundos antes da próxima leitura
+  // Aguarda 2 segundos antes de enviar os próximos dados
+  delay(2000);
 }
-

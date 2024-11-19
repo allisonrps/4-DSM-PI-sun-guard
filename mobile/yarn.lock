@@ -3915,6 +3915,11 @@ fs.realpath@^1.0.0:
   resolved "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   integrity sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==
 
+fsevents@^2.3.2:
+  version "2.3.3"
+  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
+  integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
+
 function-bind@^1.1.2:
   version "1.1.2"
   resolved "https://registry.npmjs.org/function-bind/-/function-bind-1.1.2.tgz"
@@ -6857,6 +6862,31 @@ sudo-prompt@^9.0.0:
   version "9.2.1"
   resolved "https://registry.npmjs.org/sudo-prompt/-/sudo-prompt-9.2.1.tgz"
   integrity sha512-Mu7R0g4ig9TUuGSxJavny5Rv0egCEtpZRNMrZaYS1vxkiIxGiGUwoezU3LazIQ+KE04hTrTfNPgxU5gzi7F5Pw==
+
+"SunGuard@file:":
+  version "0.0.1"
+  resolved "file:"
+  dependencies:
+    "@react-native-async-storage/async-storage" "^1.23.1"
+    "@react-native-community/masked-view" "^0.1.11"
+    "@react-native-picker/picker" "^2.8.1"
+    "@react-navigation/native" "^6.1.18"
+    "@react-navigation/stack" "^6.4.1"
+    axios "^1.6.8"
+    moment "^2.30.1"
+    react "^18.2.0"
+    react-dom "^18.2.0"
+    react-native "0.73.6"
+    react-native-chart-kit "^6.12.0"
+    react-native-gesture-handler "^2.20.0"
+    react-native-reanimated "^3.15.5"
+    react-native-safe-area-context "^4.11.0"
+    react-native-screens "^3.34.0"
+    react-native-svg "^15.8.0"
+    react-native-vector-icons "^10.2.0"
+    styled-components "^6.1.8"
+    SunGuard "file:"
+    victory-native "^41.9.0"
 
 supports-color@^5.3.0:
   version "5.5.0"

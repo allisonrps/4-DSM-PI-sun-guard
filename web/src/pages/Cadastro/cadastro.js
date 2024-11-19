@@ -9,7 +9,7 @@ const Cadastro = () => {
    
     const [nome, setNome] = useState('');
     const [fototipo, setFototipo] = useState('');
-    const [password, setPassword] = useState('');
+    const [senha, setSenha] = useState('');
     const [email, setEmail] = useState('');
     const [data_nascimento, setData_nascimento] = useState('');
   
@@ -20,15 +20,14 @@ const Cadastro = () => {
           const response = await axios.post('https://sunguard-backend.vercel.app/usuarios', {
             nome,
             fototipo,
-            password,
+            senha,
             email,
             data_nascimento
           });
-      
-          const token = response.data.token;
-          localStorage.setItem('token', token);
+          console.log(response.data); // Verifique aqui a estrutura da resposta completa
+         
           console.log('Usuário criado com sucesso!');
-          navigate('/paginaInicial');
+          navigate('/');
         } catch (error) {
           console.error('Erro ao criar usuário:', error.response ? error.response.data : error.message);
         }
@@ -46,7 +45,7 @@ const Cadastro = () => {
         <div className={styles.loginContainer}>
             
             <form className={styles.loginForm} onSubmit={handleSubmit}>
-                     <h2 className={styles.title}>Cadastro </h2> 
+                     <h1 className={styles.title}> Cadastro de Usuário </h1> 
                       
                     <div className={styles.formGroup}>
                         
@@ -69,13 +68,14 @@ const Cadastro = () => {
                        
                 
                         <select 
-                        
-                    
                         id="options"  placeholder="Fototipo" value={fototipo} onChange={handleChangeFototipo}>
-                            <option value="option1">selecione um fototipo</option>
-                            <option value="option2">Opção 2</option>
-                            <option value="option3">Opção 3</option>
-                            <option value="option4">Opção 4</option>
+                            <option value= "null">Selecione um Fototipo</option>
+                            <option value="Muito Claro">Tipo 1 - Muito Claro</option>
+                            <option value="Claro">Tipo 2 - Claro</option>
+                            <option value="Moreno Claro">Tipo 3 - Moreno Claro</option>
+                            <option value="Moreno">Tipo 4 - Moreno</option>
+                            <option value="Moreno Escuro">Tipo 5 - Moreno Escuro</option>
+                            <option value="Negro">Tipo 6 - Negro</option>
                         </select>
 
                         <input
@@ -88,8 +88,8 @@ const Cadastro = () => {
 
                         <input
                             type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            value={senha}
+                            onChange={(e) => setSenha(e.target.value)}
                             required
                             placeholder="Senha"
                         />
