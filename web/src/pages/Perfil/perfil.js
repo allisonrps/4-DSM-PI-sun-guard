@@ -34,8 +34,8 @@ const PostsPerfil = () => {
       const agora = new Date();
 
       // Calcular horários de interesse
-      const duasHorasAtras = new Date(agora.getTime() - 2 * 60 * 60 * 1000);
-      const umaHoraAtras = new Date(agora.getTime() - 1 * 60 * 60 * 1000);
+      const duasHorasAtras = new Date(agora.getTime() - 3 * 60 * 60 * 1000);
+      const umaHoraAtras = new Date(agora.getTime() - 2 * 60 * 60 * 1000);
 
       // Filtrar dados mais próximos das horas desejadas
       const filteredData = response.data.filter((item) => {
@@ -46,7 +46,7 @@ const PostsPerfil = () => {
         return (
           Math.abs(itemDate - duasHorasAtras) <= 30 * 60 * 1000 ||
           Math.abs(itemDate - umaHoraAtras) <= 30 * 60 * 1000 ||
-          Math.abs(itemDate - agora) <= 30 * 60 * 1000
+          Math.abs(itemDate - agora) <= 2 * 60 * 60 * 1000
         );
       });
 
