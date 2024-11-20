@@ -132,3 +132,10 @@
   margin-top: 15px;
   font-size: 14px;
 }
+
+.horaAtual {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: green !important; 
+  margin-bottom: 10px;
+}
