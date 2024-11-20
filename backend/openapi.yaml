@@ -12,7 +12,12 @@ paths:
   /sensors:
     get:
       summary: Retorna todos os dados de sensores com filtros opcionais
-      description: Consulta dados de sensores com a possibilidade de aplicar filtros por data, hora, UV, temperatura, umidade, e intervalo de datas.
+      description: |
+        Consulta dados de sensores com a possibilidade de aplicar filtros por:
+        - Intervalo de datas (`data_inicio` e `data_fim`).
+        - Hora específica (`hora`).
+        - Valores específicos ou todos os valores de `uv`, `temperatura`, e `umidade`.
+        Para os campos `uv`, `temperatura` e `umidade`, se não for informado um valor, retorna todos os registros onde o campo está presente.
       parameters:
         - in: query
           name: data_inicio
@@ -36,17 +41,20 @@ paths:
           name: uv
           schema:
             type: number
-          description: Filtra por valor de UV no formato X.X.
+            nullable: true
+          description: Filtra por valor específico de UV. Se não fornecido, retorna todos os registros com `uv`.
         - in: query
           name: temperatura
           schema:
             type: number
-          description: Filtra por valor de temperatura no formato XX.X.
+            nullable: true
+          description: Filtra por valor específico de temperatura. Se não fornecido, retorna todos os registros com `temperatura`.
         - in: query
           name: umidade
           schema:
             type: number
-          description: Filtra por valor de umidade no formato XX.
+            nullable: true
+          description: Filtra por valor específico de umidade. Se não fornecido, retorna todos os registros com `umidade`.
       responses:
         '200':
           description: Lista de dados de sensores
@@ -72,109 +80,81 @@ paths:
           description: Dado de sensor criado com sucesso!
         '500':
           description: Erro interno no servidor!
-  /sensors/{id}:
-    get:
-      summary: Retorna um único dado de sensor
-      description: Busca um registro de sensor pelo ID.
+    
+    delete:
+      summary: Exclui um dado de sensor.
+      description: Remove um usuário do sistema.
       parameters:
-        - in: path
-          name: id
+        - name: id
+          in: path
           required: true
+          description: ID do sensor.
           schema:
             type: string
-          description: ID do sensor
       responses:
-        '200':
-          description: Dados de sensor
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Sensor'
+        '204':
+          description: Dados de sensores excluído com sucesso.
         '404':
-          description: Dados não encontrados
+          description: Dados de sensor não encontrado.
         '500':
-          description: Erro interno no servidor
+          description: Erro interno no servidor.
+  
+  /sensors/updateMany:
     put:
-      summary: Atualiza um dado de sensor
-      description: Atualiza um registro de sensor pelo ID.
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-          description: ID do sensor
+      summary: Atualiza múltiplos registros de sensores
+      description: Atualiza registros de sensores com base nos campos `data` e `hora` fornecidos em um array no corpo da requisição.
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Sensor'
+              type: array
+              items:
+                type: object
+                properties:
+                  data:
+                    type: string
+                    format: date
+                    description: Data do registro a ser atualizado.
+                  hora:
+                    type: string
+                    description: Hora do registro a ser atualizado.
+                  temperatura:
+                    type: number
+                    nullable: true
+                    description: Novo valor para a temperatura.
+                  umidade:
+                    type: number
+                    nullable: true
+                    description: Novo valor para a umidade.
+                  uv:
+                    type: number
+                    nullable: true
+                    description: Novo valor para o índice UV.
+              example:
+                - data: "2024-11-20"
+                  hora: "12:00"
+                  temperatura: 25.0
+                  umidade: 60
+                  uv: 5.1
+                - data: "2024-11-20"
+                  hora: "13:00"
+                  temperatura: 26.0
+                  umidade: 55
+                  uv: 5.5
       responses:
         '204':
-          description: Dados atualizados com sucesso
-        '404':
-          description: Dados não encontrados
+          description: Registros atualizados com sucesso
+        '400':
+          description: Erro de validação nos dados enviados
         '500':
           description: Erro interno no servidor
-    delete:
-      summary: Deleta um dado de sensor
-      description: Remove um registro de sensor pelo ID.
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-          description: ID do sensor
-      responses:
-        '204':
-          description: Sensor excluído com sucesso
-        '404':
-          description: Sensor não encontrado
-        '500':
-          description: Erro interno no servidor
+  
+  
   /usuarios:
-    get:
-      summary: Retorna todos os usuários com filtros opcionais
-      description: Consulta dados de usuários com a possibilidade de aplicar filtros por nome, fototipo, e intervalo de datas de nascimento.
-      parameters:
-        - in: query
-          name: nome
-          schema:
-            type: string
-          description: Filtra por nome (regex).
-        - in: query
-          name: fototipo
-          schema:
-            type: string
-          description: Filtra por fototipo.
-        - in: query
-          name: data_nascimento_inicial
-          schema:
-            type: string
-            format: date
-          description: Filtra por data de nascimento inicial no formato YYYY-MM-DD.
-        - in: query
-          name: data_nascimento_final
-          schema:
-            type: string
-            format: date
-          description: Filtra por data de nascimento final no formato YYYY-MM-DD.
-      responses:
-        '200':
-          description: Lista de usuários
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Usuario'
-        '500':
-          description: Erro interno no servidor
     post:
-      summary: Cria um novo usuário
-      description: Adiciona um novo registro de usuário.
+      summary: Cria um novo usuário.
+      description: Cadastra um novo usuário no sistema.
       requestBody:
         required: true
         content:
@@ -183,43 +163,68 @@ paths:
               $ref: '#/components/schemas/Usuario'
       responses:
         '201':
-          description: Usuário criado com sucesso!
+          description: Usuário criado com sucesso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Usuário criado com sucesso!
+                  token:
+                    type: string
+                    example: jwt_token
         '400':
-          description: Campos obrigatórios não preenchidos ou email já em uso
+          description: Requisição inválida.
         '500':
-          description: Erro interno no servidor
-  /usuarios/{id}:
+          description: Erro interno do servidor.
     get:
-      summary: Retorna um único usuário
-      description: Busca um registro de usuário pelo ID.
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-          description: ID do usuário
+      summary: Lista todos os usuários.
+      description: Retorna uma lista de usuários com filtros opcionais.
       responses:
         '200':
-          description: Dados do usuário
+          description: Lista de usuários.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Usuario'
+        '500':
+          description: Erro interno no servidor.
+  /usuarios/{id}:
+    get:
+      summary: Busca um usuário por ID.
+      description: Retorna os detalhes de um usuário específico.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID do usuário.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Detalhes do usuário.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Usuario'
         '404':
-          description: Usuário não encontrado
+          description: Usuário não encontrado.
         '500':
-          description: Erro interno no servidor
+          description: Erro interno no servidor.
     put:
-      summary: Atualiza um usuário
-      description: Atualiza um registro de usuário pelo ID.
+      summary: Atualiza os dados de um usuário.
+      description: Atualiza os dados de um usuário específico.
       parameters:
-        - in: path
-          name: id
+        - name: id
+          in: path
           required: true
+          description: ID do usuário.
           schema:
             type: string
-          description: ID do usuário
       requestBody:
         required: true
         content:
@@ -228,28 +233,28 @@ paths:
               $ref: '#/components/schemas/Usuario'
       responses:
         '204':
-          description: Usuário atualizado com sucesso
+          description: Usuário atualizado com sucesso.
         '404':
-          description: Usuário não encontrado
+          description: Usuário não encontrado.
         '500':
-          description: Erro interno no servidor
+          description: Erro interno no servidor.
     delete:
-      summary: Deleta um usuário
-      description: Remove um registro de usuário pelo ID.
+      summary: Exclui um usuário.
+      description: Remove um usuário do sistema.
       parameters:
-        - in: path
-          name: id
+        - name: id
+          in: path
           required: true
+          description: ID do usuário.
           schema:
             type: string
-          description: ID do usuário
       responses:
         '204':
-          description: Usuário excluído com sucesso
+          description: Usuário excluído com sucesso.
         '404':
-          description: Usuário não encontrado
+          description: Usuário não encontrado.
         '500':
-          description: Erro interno no servidor
+          description: Erro interno no servidor.
 components:
   schemas:
     Sensor:
@@ -267,12 +272,15 @@ components:
           description: Hora do registro no formato HH:MM
         uv:
           type: number
+          nullable: true
           description: Valor de UV
         temperatura:
           type: number
+          nullable: true
           description: Valor da temperatura
         umidade:
           type: number
+          nullable: true
           description: Valor da umidade
       example:
         _id: "67049ba390e6606216547f61"
@@ -284,30 +292,19 @@ components:
     Usuario:
       type: object
       properties:
-        _id:
-          type: string
-          description: ID único do usuário
         nome:
           type: string
-          description: Nome do usuário
+          example: João Silva
         fototipo:
           type: string
-          description: Fototipo do usuário
+          example: I
         senha:
           type: string
-          description: Senha do usuário
+          example: minhaSenha123
         email:
           type: string
-          format: email
-          description: Email do usuário
+          example: joao@email.com
         data_nascimento:
           type: string
           format: date
-          description: Data de nascimento do usuário
-      example:
-        _id: "1234567890abcdef12345678"
-        nome: "João da Silva"
-        fototipo: "Muito Claro"
-        senha: "senha_aqui"
-        email: "joao@example.com"
-        data_nascimento: "1990-01-01"
+          example: 1990-05-15

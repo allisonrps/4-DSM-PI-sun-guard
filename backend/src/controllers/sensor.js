@@ -32,57 +32,55 @@ controller.delete = async (req, res) => {
 };
 
 
-controller.retrieveAll = async function(req, res) {
+controller.retrieveAll = async function (req, res) {
   try {
     const filtro = {};
+    let projeção = null; // Projeção será configurada com base nos filtros aplicados
 
     // Verificar se há parâmetro de data_inicio na query
     if (req.query.data_inicio) {
-      const dataInicio = new Date(req.query.data_inicio);  // Converte a string de data_inicio para Date
-      filtro.data = { 
-        $gte: dataInicio  // Filtra data maior ou igual a data_inicio
+      const dataInicio = new Date(req.query.data_inicio); // Converte a string para Date
+      filtro.data = {
+        $gte: dataInicio, // Filtra data maior ou igual a data_inicio
       };
     }
 
     // Verificar se há parâmetro de data_fim na query
     if (req.query.data_fim) {
-      const dataFim = new Date(req.query.data_fim);  // Converte a string de data_fim para Date
+      const dataFim = new Date(req.query.data_fim); // Converte a string para Date
       filtro.data = {
-        ...filtro.data,  // Mantém o filtro anterior
-        $lt: dataFim  // Filtra data menor que data_fim
+        ...filtro.data, // Mantém o filtro anterior
+        $lte: dataFim, // Filtra data menor ou igual a data_fim
       };
     }
 
-    // Verificar se há parâmetro de hora na query
-    if (req.query.hora) {
-      filtro.hora = req.query.hora;  // Filtra pela hora exata no formato HH:MM
+    // Verificar se há filtros específicos sem valor (uv, temperatura, umidade)
+    const camposEspecificos = ['uv', 'temperatura', 'umidade'];
+    const camposPresentes = camposEspecificos.filter((campo) => req.query[campo] !== undefined);
+
+    // Configura a projeção para campos específicos (caso existam)
+    if (camposPresentes.length > 0) {
+      projeção = { data: 1, hora: 1 }; // Sempre inclui "data" e "hora"
+
+      // Adiciona os campos específicos à projeção
+      camposPresentes.forEach((campo) => {
+        projeção[campo] = 1;
+      });
     }
 
-    // Verificar se há parâmetro de UV na query
-    if (req.query.uv) {
-      filtro.uv = req.query.uv;  // Filtra pelo valor de UV
-    }
+    // Busca no banco com os filtros aplicados e projeção configurada
+    const result = await Sensor.find(filtro, projeção).sort({ data: 1, hora: 1 });
 
-    // Verificar se há parâmetro de temperatura na query
-    if (req.query.temperatura) {
-      filtro.temperatura = req.query.temperatura;  // Filtra pelo valor de temperatura
-    }
-
-    // Verificar se há parâmetro de umidade na query
-    if (req.query.umidade) {
-      filtro.umidade = req.query.umidade;  // Filtra pelo valor de umidade
-    }
-
-    // Busca no banco com os filtros aplicados e ordena por data e hora (ordem crescente)
-    const result = await Sensor.find(filtro).sort({ data: 1, hora: 1 });  // Ordena por data e depois hora
-
-    // Retorna os dados filtrados e ordenados
+    // Retorna os dados filtrados e projetados
     res.send(result);
-  } catch(error) {
+  } catch (error) {
     console.error(error);
-    res.status(500).end();
+    res.status(500).send({ error: 'Erro ao processar a solicitação' });
   }
-}
+};
+
+
+
 
 
 controller.retrieveOne = async function(req, res) {
