@@ -3,7 +3,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styles from "./Perfil.module.css";
 import logo from "../../assets/logo.png";
-import { parseISO, compareDesc } from "date-fns";
 
 const PostsPerfil = () => {
   const [user, setUser] = useState(null);
@@ -31,8 +30,29 @@ const PostsPerfil = () => {
         "https://sunguard-backend.vercel.app/sensors"
       );
 
-      const sortedData = response.data
-        .sort((a, b) => compareDesc(parseISO(b.data), parseISO(a.data)))
+      // Obter horário atual
+      const agora = new Date();
+
+      // Calcular horários de interesse
+      const duasHorasAtras = new Date(agora.getTime() - 2 * 60 * 60 * 1000);
+      const umaHoraAtras = new Date(agora.getTime() - 1 * 60 * 60 * 1000);
+
+      // Filtrar dados mais próximos das horas desejadas
+      const filteredData = response.data.filter((item) => {
+        const itemDate = new Date(item.data);
+        const itemHora = item.hora.split(":");
+        itemDate.setHours(parseInt(itemHora[0], 10), parseInt(itemHora[1], 10));
+
+        return (
+          Math.abs(itemDate - duasHorasAtras) <= 30 * 60 * 1000 ||
+          Math.abs(itemDate - umaHoraAtras) <= 30 * 60 * 1000 ||
+          Math.abs(itemDate - agora) <= 30 * 60 * 1000
+        );
+      });
+
+      // Ordenar e pegar os 3 mais recentes
+      const sortedData = filteredData
+        .sort((a, b) => new Date(b.data) - new Date(a.data))
         .slice(0, 3);
 
       if (JSON.stringify(sortedData) !== JSON.stringify(data)) {
@@ -104,18 +124,37 @@ const PostsPerfil = () => {
 
       <h1>Dados dos Sensores e Recomendações de Proteção Solar</h1>
       <div className={styles.containerCards}>
-        {data.map((item) => (
-         <div key={item._id} className={styles.card}>
-         <p><span>Data:</span> <span className={styles.value}>{new Date(item.data).toLocaleDateString()}</span></p>
-         <p><span>Hora:</span> <span className={styles.value}>{item.hora}</span></p>
-         <p><span>UV:</span> <span className={styles.value}>{item.uv}</span></p>
-         <p><span>Temperatura:</span> <span className={styles.value}>{item.temperatura}°C</span></p>
-         <p><span>Umidade:</span> <span className={styles.value}>{item.umidade}%</span></p>
-         <p className={styles.recommendation}>
-           Recomendação: {avaliarProtecaoUV(user?.fototipo, item.uv)}
-         </p>
-       </div>
-       
+        {data.map((item, index) => (
+          <div key={item._id} className={styles.card}>
+            {index === 2 && (
+              <p className={styles.horaAtual}>Hora Atual</p> // Mover o "Hora Atual" para o topo do terceiro card
+            )}
+            <p>
+              <span>Data:</span>{" "}
+              <span className={styles.value}>
+                {new Date(item.data).toLocaleDateString()}
+              </span>
+            </p>
+            <p>
+              <span>Hora:</span>{" "}
+              <span className={styles.value}>{item.hora}</span>
+            </p>
+            <p>
+              <span>UV:</span>{" "}
+              <span className={styles.value}>{item.uv}</span>
+            </p>
+            <p>
+              <span>Temperatura:</span>{" "}
+              <span className={styles.value}>{item.temperatura}°C</span>
+            </p>
+            <p>
+              <span>Umidade:</span>{" "}
+              <span className={styles.value}>{item.umidade}%</span>
+            </p>
+            <p className={styles.recommendation}>
+              Recomendação: {avaliarProtecaoUV(user?.fototipo, item.uv)}
+            </p>
+          </div>
         ))}
       </div>
     </div>
