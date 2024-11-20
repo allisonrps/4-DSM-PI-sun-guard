@@ -16,10 +16,14 @@ A aplicação permite cadastro de usuários, visualização de gráficos e infor
 ---
 
 <p align="center">
-  <img src="../prints/mobile-login.png" alt="Tela de Login" width="200" style="margin-right: 10px;"/>
-  <img src="../prints/mobile-cadastro.png" alt="Tela de Cadastro" width="200" style="margin-right: 10px;"/>
-  <img src="../prints/mobile-perfil.png" alt="Tela de Perfil" width="200" style="margin-right: 10px;"/>
-  <img src="../prints/mobile-graficos.png" alt="Tela de Gráficos" width="200" style="margin-right: 10px;"/>
+  <img src="../prints/mobile-login.jpg" alt="Tela de Login" width="200" style="margin-right: 10px;"/>
+  <img src="../prints/mobile-cadastro.jpg" alt="Tela de Cadastro" width="200" style="margin-right: 10px;"/>
+  <img src="../prints/mobile-perfil.jpg" alt="Tela de Perfil" width="200" style="margin-right: 10px;"/>
+  <img src="../prints/mobile-graficos1.jpg" alt="Tela de Gráficos" width="200" style="margin-right: 10px;"/>
+  <img src="../prints/mobile-graficos2.jpg" alt="Tela de Gráficos" width="200" style="margin-right: 10px;"/>
+  <img src="../prints/mobile-graficos3.jpg" alt="Tela de Gráficos" width="200" style="margin-right: 10px;"/>
+  <img src="../prints/mobile-graficos4.jpg" alt="Tela de Gráficos" width="200" style="margin-right: 10px;"/>
+  <img src="../prints/mobile-graficos5.jpg" alt="Tela de Gráficos" width="200" style="margin-right: 10px;"/>
 </p>
 
 ---
