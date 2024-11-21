@@ -39,6 +39,9 @@ Através da aplicação web e mobile será possível coletar dados de incidênci
   - GUVA S12D (Raios UV)
   - DHT11 (Temperatura e Umidade)
 
+[Video Demonstração Arduino](./arduino/IoT.mp4)
+
+
 ### Backend
 - ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white) ![Express.js](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white) ![Axios](https://img.shields.io/badge/Axios-671ddf?style=for-the-badge&logo=axios&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-4ea94b?style=for-the-badge&logo=mongodb&logoColor=white)
 
@@ -76,6 +79,8 @@ Através da aplicação web e mobile será possível coletar dados de incidênci
 ---
 
 ## Prints MOBILE
+
+[Video Demonstração MOBILE APP](./prints/mobile-VIDEO-DEMO.mp4)
 
 <p align="center">
   <img src="./prints/mobile-login.jpg" alt="Tela de Login" width="200" style="margin-right: 10px;"/>
