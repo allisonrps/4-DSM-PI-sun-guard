@@ -8,34 +8,69 @@
 "__v": 0
 },
 
+-------------------------------------------------------------
+
+{
+"data": "2024-12-01T00:00:00.000Z",
+"hora": "00:00",
+"uv": "0.0",
+"temperatura": "20.0",
+"umidade": "75"
+}
+
+
+{
+"data": "2024-12-01T00:00:00.000Z",
+"hora": "01:00",
+"uv": "0.0",
+"temperatura": "19.0",
+"umidade": "75"
+}
+
 ----------------------------------------------------------------------------
 
-Para data especifica, exemplo mes de outubro:
+Seleção com DATA  -----  OUTUBRO: (todos sensores)
 
 https://sunguard-backend.vercel.app/sensors?data_inicio=2024-10-01&data_fim=2024-10-31
 
 ----------------------------------------------------------------------------
 
-Para data especifica com sensor selecionado, UV exemplo mes de outubro:
+Seleção com sensor, data  -----  UV, OUTUBRO:
 
 https://sunguard-backend.vercel.app/sensors?data_inicio=2024-10-01&data_fim=2024-10-31&uv
 
 
 ----------------------------------------------------------------------------
 
+Seleção com sensor, data e hora  -----  UV, 10:00, OUTUBRO:
 
-https://sunguard-backend.vercel.app/sensors?data=2024-11-18
+https://sunguard-backend.vercel.app/sensors?data_inicio=2024-11-01&data_fim=2024-11-10&hora=10:00&uv
+
+----------------------------------------------------------------------------
+
+Seleção com 2 sensores, data e hora  -----  UV, TEMPERATURA, 10:00, OUTUBRO:
+
+https://sunguard-backend.vercel.app/sensors?data_inicio=2024-11-01&data_fim=2024-11-10&hora=10:00&uv&temperatura
+
+
+
+
+
+
+
+-------
+OLDS
+-------
+
+Só HORA:
 
 https://sunguard-backend.vercel.app/sensors?hora=14:30
 
-https://sunguard-backend.vercel.app/sensors?uv=5.3
-
-https://sunguard-backend.vercel.app/sensors?temperatura=22.5
-
-https://sunguard-backend.vercel.app/sensors?umidade=60
 
 
-https://sunguard-backend.vercel.app/sensors?data=2024-11-18&temperatura=22.5&umidade=60
+
+
+
 
 
 

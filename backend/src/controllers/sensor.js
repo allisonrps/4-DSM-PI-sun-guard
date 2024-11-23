@@ -6,21 +6,19 @@ const controller = {}; // Objeto vazio
 controller.create = async function (req, res) {
   try {
     await Sensor.create(req.body);
-
-    // Envia uma resposta de sucesso ao front-end
-    res.status(201).end();
+    res.status(201).end(); // Sucesso
   } catch (error) {
     console.error(error);
-    res.status(500).end(); // HTTP 500: Internal Server Error
+    res.status(500).end(); // Erro interno
   }
 };
 
-// Método para deletar um sensor pelo ID
+// Método para deletar um sensor por ID
 controller.delete = async (req, res) => {
   try {
     const result = await Sensor.findByIdAndDelete(req.params.id);
     if (result) {
-      res.status(204).end(); // Documento encontrado e excluído
+      res.status(204).end(); // Documento excluído
     } else {
       res.status(404).send({ error: 'Documento não encontrado' }); // Documento não encontrado
     }
@@ -30,11 +28,11 @@ controller.delete = async (req, res) => {
   }
 };
 
-// Método para buscar todos os sensores com filtros
+// Método para retornar todos os sensores com filtros opcionais
 controller.retrieveAll = async function (req, res) {
   try {
     const filtro = {};
-    let projeção = { data: 1, hora: 1 }; // Sempre inclui data e hora
+    let projeção = null; // Projeção nula para retornar todos os campos
 
     // Filtro por data de início
     if (req.query.data_inicio) {
@@ -53,29 +51,28 @@ controller.retrieveAll = async function (req, res) {
 
     // Filtro por hora
     if (req.query.hora) {
-      filtro.hora = req.query.hora; // Igualdade direta na hora
+      filtro.hora = req.query.hora;
     }
 
-    // Adicionar automaticamente campos específicos na projeção, caso presentes na query string
+    // Configura projeção apenas se campos específicos forem solicitados
     const camposEspecificos = ['temperatura', 'umidade', 'uv'];
-    camposEspecificos.forEach((campo) => {
-      if (req.query[campo] !== undefined) {
-        projeção[campo] = 1; // Inclui o campo na projeção
-      }
-    });
+    const camposPresentes = camposEspecificos.filter((campo) => campo in req.query);
 
-    // Buscar no banco com filtros e projeção
+    if (camposPresentes.length > 0) {
+      projeção = { data: 1, hora: 1 }; // Sempre inclui data e hora
+      camposPresente.forEach((campo) => (projeção[campo] = 1)); // Adiciona campos solicitados
+    }
+
+    // Busca no banco
     const result = await Sensor.find(filtro, projeção).sort({ data: 1, hora: 1 });
-
-    // Retornar os dados filtrados
-    res.send(result);
+    res.send(result); // Retorna os dados
   } catch (error) {
     console.error(error);
     res.status(500).send({ error: 'Erro ao processar a solicitação' });
   }
 };
 
-// Método para buscar um sensor específico pelo ID
+// Método para retornar um único sensor por ID
 controller.retrieveOne = async function (req, res) {
   try {
     const result = await Sensor.findById(req.params.id);
@@ -87,11 +84,11 @@ controller.retrieveOne = async function (req, res) {
   }
 };
 
-// Método para atualizar um sensor pelo ID
+// Método para atualizar um sensor por ID
 controller.update = async function (req, res) {
   try {
     const result = await Sensor.findByIdAndUpdate(req.params.id, req.body);
-    if (result) res.status(204).end(); // Documento encontrado e atualizado
+    if (result) res.status(204).end(); // Documento atualizado
     else res.status(404).end(); // Documento não encontrado
   } catch (error) {
     console.error(error);
@@ -99,7 +96,7 @@ controller.update = async function (req, res) {
   }
 };
 
-// Método para atualizar múltiplos sensores com base em data e hora
+// Método para atualizar vários sensores
 controller.updateMany = async function (req, res) {
   try {
     if (!Array.isArray(req.body)) {
@@ -116,8 +113,8 @@ controller.updateMany = async function (req, res) {
       const formattedDate = new Date(data).toISOString().split('T')[0];
 
       const result = await Sensor.updateOne(
-        { data: formattedDate, hora }, // Filtro por data (somente dia) e hora específicas
-        { temperatura, umidade, uv } // Campos a serem atualizados
+        { data: formattedDate, hora }, // Filtro por data e hora
+        { temperatura, umidade, uv } // Campos para atualizar
       );
 
       if (result.matchedCount === 0) {
@@ -126,7 +123,6 @@ controller.updateMany = async function (req, res) {
     });
 
     await Promise.all(updatePromises);
-
     res.status(204).end();
   } catch (error) {
     console.error(error);
